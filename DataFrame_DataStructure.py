@@ -126,17 +126,70 @@ stacked=pd.melt(users,id_vars='name',var_name='variable',value_name='value')
 
 
 #dublication
-df=users.copy()
-df=pd.concat([df,df[df.index==0]])
-df=pd.concat([df,df[df.index==2]])
-df=pd.concat([df,df[df.index==4]])
-df.sort_values(by='name',inplace=True)
-df.index=range(df.shape[0])
+# df=users.copy()
+# df=pd.concat([df,df[df.index==0]])
+# df=pd.concat([df,df[df.index==2]])
+# df=pd.concat([df,df[df.index==4]])
+# df.sort_values(by='name',inplace=True)
+# df.index=range(df.shape[0])
 # print(df)
 
 #delete duplication
-df=df[~df.duplicated()]
-print(df)
+# df=df[~df.duplicated()]
+# print(df)
+
+
+#df=users_left_outer.copy()
+# print(df)
+# df.info()
+# print(df.height.isnull())
+#print("Number of Null enterieis is",df.height.isnull().sum())
+#print(df.isnull().sum())
+#print(df.notnull().sum())
+
+
+#   ////////////////       Deleting entire row containing Nan values
+
+
+# df=users_left_outer.copy()
+# print(df)
+# df.dropna(inplace=True)
+# print(df)
+# mean_height=df.height.mean()
+# print(mean_height)
+# df.fillna(mean_height,inplace=True)
+# print(df)
+
+
+#//////////////////   forward fill
+# df=users_left_outer.copy()
+# df.sort_values(by='age',inplace=True)
+# df.index=range(df.shape[0])
+# print(df)
+# df.fillna(method='pad',inplace=True)
+# print(df)
+
+#/////////////////   backword fill
+# df=users_left_outer.copy()
+# df.sort_values(by='age',inplace=True)
+# df.index=range(df.shape[0])
+# print(df)
+# df.fillna(method='bfill',inplace=True)
+# print(df)
+
+
+#////                    Group by
+
+df=users.copy()
+# for group,data_frame in df.groupby('job'):
+#     print(type(group),type(data_frame))
+#     print("Group name:",group)
+#     print(data_frame)
+grouped_df=df.groupby('job').agg({'age':['sum','mean','max','min'],'gender':'count'})
+print(grouped_df)    
+
+grouped_df=df.groupby('gender').agg({'age':['sum','mean','max','min'],'gender':'count'})
+print(grouped_df) 
 
 
 
